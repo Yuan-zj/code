@@ -195,6 +195,7 @@ namespace MyAsync
                 //Thread thread = new Thread(threadStart);
                 //thread.Start();
             }
+
             {
                 // .NetFramework 2.0(新的CLR) ThreadPool
                 // 1.线程复用 2.限制最大线程数量
@@ -206,6 +207,7 @@ namespace MyAsync
                 //};
                 //ThreadPool.QueueUserWorkItem(callback);
             }
+
             {
                 // .NetFramework 3.0 Task被称之为多线程的最佳实践！
                 //Action action = () =>
@@ -217,33 +219,47 @@ namespace MyAsync
                 //Task task = new Task(action);
                 //task.Start();
             }
+
             {
                 // Parallel可以启动多线程，主线程也参与计算
                 // ParallelOptions 控制最大并发数量
-                Parallel.Invoke(() =>
-                {
-                    Console.WriteLine($"This is Parallel Start1 {Thread.CurrentThread.ManagedThreadId}");
-                    Thread.Sleep(2000);
-                    Console.WriteLine($"This is Parallel   End1 {Thread.CurrentThread.ManagedThreadId}");
-                },
-                () =>
-                {
-                    Console.WriteLine($"This is Parallel Start2 {Thread.CurrentThread.ManagedThreadId}");
-                    Thread.Sleep(2000);
-                    Console.WriteLine($"This is Parallel   End2 {Thread.CurrentThread.ManagedThreadId}");
-                },
-                () =>
-                {
-                    Console.WriteLine($"This is Parallel Start3 {Thread.CurrentThread.ManagedThreadId}");
-                    Thread.Sleep(2000);
-                    Console.WriteLine($"This is Parallel   End3 {Thread.CurrentThread.ManagedThreadId}");
-                },
-                () =>
-                {
-                    Console.WriteLine($"This is Parallel Start4 {Thread.CurrentThread.ManagedThreadId}");
-                    Thread.Sleep(2000);
-                    Console.WriteLine($"This is Parallel   End4 {Thread.CurrentThread.ManagedThreadId}");
-                });
+                //Parallel.Invoke(() =>
+                //{
+                //    Console.WriteLine($"This is Parallel Start1 {Thread.CurrentThread.ManagedThreadId}");
+                //    Thread.Sleep(2000);
+                //    Console.WriteLine($"This is Parallel   End1 {Thread.CurrentThread.ManagedThreadId}");
+                //},
+                //() =>
+                //{
+                //    Console.WriteLine($"This is Parallel Start2 {Thread.CurrentThread.ManagedThreadId}");
+                //    Thread.Sleep(2000);
+                //    Console.WriteLine($"This is Parallel   End2 {Thread.CurrentThread.ManagedThreadId}");
+                //},
+                //() =>
+                //{
+                //    Console.WriteLine($"This is Parallel Start3 {Thread.CurrentThread.ManagedThreadId}");
+                //    Thread.Sleep(2000);
+                //    Console.WriteLine($"This is Parallel   End3 {Thread.CurrentThread.ManagedThreadId}");
+                //},
+                //() =>
+                //{
+                //    Console.WriteLine($"This is Parallel Start4 {Thread.CurrentThread.ManagedThreadId}");
+                //    Thread.Sleep(2000);
+                //    Console.WriteLine($"This is Parallel   End4 {Thread.CurrentThread.ManagedThreadId}");
+                //});
+            }
+
+            {
+                // await async
+                //await Task Run(() => { })
+            }
+
+            {
+                //TaskFactory taskFactory = new TaskFactory();
+                //taskFactory.ContinueWhenAll();
+                //taskFactory.ContinueWhenAny();
+                //Task.WaitAll();
+                //Task.WaitAny();
             }
             Console.WriteLine("******btnAsync_Click异步方法   end 线程:{0:00}******", Thread.CurrentThread.ManagedThreadId);
             Console.WriteLine();
