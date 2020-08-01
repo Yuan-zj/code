@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MyAsync
@@ -185,24 +186,64 @@ namespace MyAsync
             Console.WriteLine("******btnAsync_Click异步方法 start 线程:{0:00}******", Thread.CurrentThread.ManagedThreadId);
             {
                 // .NetFramework 1.0 1.1
-                ThreadStart threadStart = () =>
-                {
-                    Console.WriteLine($"This is Thread Start {Thread.CurrentThread.ManagedThreadId}");
-                    Thread.Sleep(2000);
-                    Console.WriteLine($"This is Thread   End {Thread.CurrentThread.ManagedThreadId}");
-                };
-                Thread thread = new Thread(threadStart);
-                thread.Start();
+                //ThreadStart threadStart = () =>
+                //{
+                //    Console.WriteLine($"This is Thread Start {Thread.CurrentThread.ManagedThreadId}");
+                //    Thread.Sleep(2000);
+                //    Console.WriteLine($"This is Thread   End {Thread.CurrentThread.ManagedThreadId}");
+                //};
+                //Thread thread = new Thread(threadStart);
+                //thread.Start();
             }
             {
                 // .NetFramework 2.0(新的CLR) ThreadPool
-                WaitCallback callback = o =>
+                // 1.线程复用 2.限制最大线程数量
+                //WaitCallback callback = o =>
+                //{
+                //    Console.WriteLine($"This is ThreadPool Start {Thread.CurrentThread.ManagedThreadId}");
+                //    Thread.Sleep(2000);
+                //    Console.WriteLine($"This is ThreadPool   End {Thread.CurrentThread.ManagedThreadId}");
+                //};
+                //ThreadPool.QueueUserWorkItem(callback);
+            }
+            {
+                // .NetFramework 3.0 Task被称之为多线程的最佳实践！
+                //Action action = () =>
+                //{
+                //    Console.WriteLine($"This is Task Start {Thread.CurrentThread.ManagedThreadId}");
+                //    Thread.Sleep(2000);
+                //    Console.WriteLine($"This is Task   End {Thread.CurrentThread.ManagedThreadId}");
+                //};
+                //Task task = new Task(action);
+                //task.Start();
+            }
+            {
+                // Parallel可以启动多线程，主线程也参与计算
+                // ParallelOptions 控制最大并发数量
+                Parallel.Invoke(() =>
                 {
-                    Console.WriteLine($"This is ThreadPool Start {Thread.CurrentThread.ManagedThreadId}");
+                    Console.WriteLine($"This is Parallel Start1 {Thread.CurrentThread.ManagedThreadId}");
                     Thread.Sleep(2000);
-                    Console.WriteLine($"This is ThreadPool   End {Thread.CurrentThread.ManagedThreadId}");
-                };
-                ThreadPool.QueueUserWorkItem(callback);
+                    Console.WriteLine($"This is Parallel   End1 {Thread.CurrentThread.ManagedThreadId}");
+                },
+                () =>
+                {
+                    Console.WriteLine($"This is Parallel Start2 {Thread.CurrentThread.ManagedThreadId}");
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"This is Parallel   End2 {Thread.CurrentThread.ManagedThreadId}");
+                },
+                () =>
+                {
+                    Console.WriteLine($"This is Parallel Start3 {Thread.CurrentThread.ManagedThreadId}");
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"This is Parallel   End3 {Thread.CurrentThread.ManagedThreadId}");
+                },
+                () =>
+                {
+                    Console.WriteLine($"This is Parallel Start4 {Thread.CurrentThread.ManagedThreadId}");
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"This is Parallel   End4 {Thread.CurrentThread.ManagedThreadId}");
+                });
             }
             Console.WriteLine("******btnAsync_Click异步方法   end 线程:{0:00}******", Thread.CurrentThread.ManagedThreadId);
             Console.WriteLine();
