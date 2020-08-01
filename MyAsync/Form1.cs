@@ -194,6 +194,16 @@ namespace MyAsync
                 Thread thread = new Thread(threadStart);
                 thread.Start();
             }
+            {
+                // .NetFramework 2.0(新的CLR) ThreadPool
+                WaitCallback callback = o =>
+                {
+                    Console.WriteLine($"This is ThreadPool Start {Thread.CurrentThread.ManagedThreadId}");
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"This is ThreadPool   End {Thread.CurrentThread.ManagedThreadId}");
+                };
+                ThreadPool.QueueUserWorkItem(callback);
+            }
             Console.WriteLine("******btnAsync_Click异步方法   end 线程:{0:00}******", Thread.CurrentThread.ManagedThreadId);
             Console.WriteLine();
         }
