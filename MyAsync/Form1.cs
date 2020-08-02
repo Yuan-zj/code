@@ -187,38 +187,38 @@ namespace MyAsync
             Console.WriteLine("******btnAsync_Click异步方法 start 线程:{0:00}******", Thread.CurrentThread.ManagedThreadId);
             {
                 // .NetFramework 1.0 1.1
-                //ThreadStart threadStart = () =>
-                //{
-                //    Console.WriteLine($"This is Thread Start {Thread.CurrentThread.ManagedThreadId}");
-                //    Thread.Sleep(2000);
-                //    Console.WriteLine($"This is Thread   End {Thread.CurrentThread.ManagedThreadId}");
-                //};
-                //Thread thread = new Thread(threadStart);
-                //thread.Start();
+                ThreadStart threadStart = () =>
+                {
+                    Console.WriteLine($"This is Thread Start {Thread.CurrentThread.ManagedThreadId}");
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"This is Thread   End {Thread.CurrentThread.ManagedThreadId}");
+                };
+                Thread thread = new Thread(threadStart);
+                thread.Start();
             }
 
             {
                 // .NetFramework 2.0(新的CLR) ThreadPool
                 // 1.线程复用 2.限制最大线程数量
-                //WaitCallback callback = o =>
-                //{
-                //    Console.WriteLine($"This is ThreadPool Start {Thread.CurrentThread.ManagedThreadId}");
-                //    Thread.Sleep(2000);
-                //    Console.WriteLine($"This is ThreadPool   End {Thread.CurrentThread.ManagedThreadId}");
-                //};
-                //ThreadPool.QueueUserWorkItem(callback);
+                WaitCallback callback = o =>
+                {
+                    Console.WriteLine($"This is ThreadPool Start {Thread.CurrentThread.ManagedThreadId}");
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"This is ThreadPool   End {Thread.CurrentThread.ManagedThreadId}");
+                };
+                ThreadPool.QueueUserWorkItem(callback);
             }
 
             {
                 // .NetFramework 3.0 Task被称之为多线程的最佳实践！
-                //Action action = () =>
-                //{
-                //    Console.WriteLine($"This is Task Start {Thread.CurrentThread.ManagedThreadId}");
-                //    Thread.Sleep(2000);
-                //    Console.WriteLine($"This is Task   End {Thread.CurrentThread.ManagedThreadId}");
-                //};
-                //Task task = new Task(action);
-                //task.Start();
+                Action action = () =>
+                {
+                    Console.WriteLine($"This is Task Start {Thread.CurrentThread.ManagedThreadId}");
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"This is Task   End {Thread.CurrentThread.ManagedThreadId}");
+                };
+                Task task = new Task(action);
+                task.Start();
             }
 
             {
@@ -256,11 +256,11 @@ namespace MyAsync
             }
 
             {
-                //TaskFactory taskFactory = new TaskFactory();
+                TaskFactory taskFactory = new TaskFactory();
                 //taskFactory.ContinueWhenAll();
                 //taskFactory.ContinueWhenAny();
-                //Task.WaitAll();
-                //Task.WaitAny();
+                Task.WaitAll();
+                Task.WaitAny();
             }
             Console.WriteLine("******btnAsync_Click异步方法   end 线程:{0:00}******", Thread.CurrentThread.ManagedThreadId);
             Console.WriteLine();

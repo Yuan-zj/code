@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Globalization;
 using System.Runtime.Serialization;
+using AwaitAsyncLibrary;
 
 namespace MultiThread
 {
     class Program
     {
+        /*
         static void Main(string[] args)
         {
             //string OpId = "002323";
@@ -56,5 +58,22 @@ namespace MultiThread
 
 
         }
+        */
+        public static void Main()
+        {
+            try
+            {
+                {
+                    new AwaitAsyncClassNew().Show();
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            Console.ReadKey();
+        }
     }
 }
+
