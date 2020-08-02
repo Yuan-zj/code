@@ -33,6 +33,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.lblProcessing = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.MultiThreadSafety = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnSync
@@ -84,11 +85,22 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.btnMultiple_Click);
             // 
+            // MultiThreadSafety
+            // 
+            this.MultiThreadSafety.Location = new System.Drawing.Point(178, 91);
+            this.MultiThreadSafety.Name = "MultiThreadSafety";
+            this.MultiThreadSafety.Size = new System.Drawing.Size(75, 36);
+            this.MultiThreadSafety.TabIndex = 5;
+            this.MultiThreadSafety.Text = "多线程安全";
+            this.MultiThreadSafety.UseVisualStyleBackColor = true;
+            this.MultiThreadSafety.Click += new System.EventHandler(this.MultiThreadSafety_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(317, 202);
+            this.Controls.Add(this.MultiThreadSafety);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.lblProcessing);
             this.Controls.Add(this.button1);
@@ -109,6 +121,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lblProcessing;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button MultiThreadSafety;
     }
 }
 

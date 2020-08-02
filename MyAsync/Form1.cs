@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -266,5 +267,66 @@ namespace MyAsync
         }
 
         #endregion 0801
+
+        #region 0802
+        private void MultiThreadSafety_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine();
+            Console.WriteLine("==============MultiThreadSafety_Click 异步方法 start {0:00}=============", Thread.CurrentThread.ManagedThreadId);
+
+            #region 线程安全 outofrange
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    int x = i;
+            //    Thread.Sleep(5);
+            //    Task.Run(() =>
+            //    {
+            //        Console.WriteLine($"This is Thread-{x} {i} Start 线程id:{Thread.CurrentThread.ManagedThreadId:00}");
+            //        Thread.Sleep(2000);
+            //        Console.WriteLine($"This is Thread-{x} {i}   End 线程id:{Thread.CurrentThread.ManagedThreadId:00}");
+            //    });
+            //}
+            #endregion
+
+            #region 什么是线程安全
+            // 多线程去访问同一个集合，有问题吗？
+            // 一般是没问题的 线程安全问题都是出现在修改一个对象的
+            //List<int> intList = new List<int>();
+            //for (int i = 0; i < 1000; i++)
+            //{
+            //    Task.Run(() =>
+            //    {
+            //        intList.Add(i);
+            //    });
+            //}
+            //Thread.Sleep(2000);
+            //Console.WriteLine(intList);
+            // 多线程安全问题：一段代码，单线程执行和多线程执行结果不一致，就表面有线程安全问题
+            #endregion
+
+            #region 解决线程安全问题
+            List<int> intList = new List<int>();
+            for (int i = 0; i < 1000; i++)
+            {
+                Task.Run(() =>
+                {
+                    lock (LOCK)
+                    {
+                        intList.Add(i);
+                    }
+                });
+            }
+            // 加lock就能解决线程安全问题------就是单线程化----lock保证方法块任意时刻只有一个线程进去，其它线程就排队-----单线程化
+            //Lock原理---语法糖
+            Thread.Sleep(2000);
+            Console.WriteLine(intList);
+            #endregion
+            Console.WriteLine("==============MultiThreadSafety_Click 异步方法   end {0:00}=============", Thread.CurrentThread.ManagedThreadId);
+            Console.WriteLine();
+        }
+        #endregion
+
+        private static readonly object LOCK = new object();
+
     }
 }
